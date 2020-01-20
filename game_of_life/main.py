@@ -1,6 +1,7 @@
 #conway's game of life  
 #Tharun Tilakumara 2019/1/19 
-
+ 
+import random
 
 #functions
 #checks and returns board for next generation
