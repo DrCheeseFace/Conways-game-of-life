@@ -22,21 +22,26 @@ canvas.pack()
 
 
 #number of cells per side
-cells=50
+cells=100
 
-#drawing_canvas.create_rectangle(10,10,100,100,fill='black')
-
+#loop to draw alive cells 
 board=main.initialize(cells)
+	
+
+
+
+
 #checking every cell and drawing alive or dead cell
 while True:
 	delete_all_objects()
 	for i in range(len(board)):
 		for j in range(len(board[i])):
 			if board[i][j] == 1:
-				canvas.create_rectangle(i*(canvas_width/cells),j*(canvas_width/cells),i*(canvas_width/cells)+canvas_width/cells,j*(canvas_width/cells)+canvas_width/cells,fill='black')
-			else:
-				
-				canvas.create_rectangle(i*(canvas_width/cells),j*(canvas_width/cells),i*(canvas_width/cells)+canvas_width/cells,j*(canvas_width/cells)+canvas_width/cells,fill='white')
+				canvas.create_rectangle(i*(canvas_width/cells),
+				j*(canvas_width/cells),
+				i*(canvas_width/cells)+canvas_width/cells,
+				j*(canvas_width/cells)+canvas_width/cells,
+				fill='black')
 
 	window.update()
 	board=main.live_or_die(board,cells)

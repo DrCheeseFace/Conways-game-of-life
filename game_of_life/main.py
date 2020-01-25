@@ -66,11 +66,12 @@ def print_board(board):
 
 	print()
 
-
-
-
-
 #initialize game board
+def makeboard(side_length):
+	board = [[0 for i in range(side_length)]for j in range(side_length)]
+	return board
+
+#used for randomizing board
 def initialize(side_length):
 
 	#create game board
