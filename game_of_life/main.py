@@ -46,6 +46,7 @@ def live_or_die(board,side_length):   #create temp_board return temp_board
 			except:
 				pass
 			
+			#adding alive or dead cells to the board			
 			if board[i][j]==1:
 				if alive_cells<2:
 					temp_board[i][j]=0

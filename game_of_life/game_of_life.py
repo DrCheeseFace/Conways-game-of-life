@@ -1,39 +1,83 @@
 import tkinter,main,time	
 
 
-#deletes all objects on screen and redraws the grid lines
-def delete_all_objects():
-	
-	canvas.delete('all')
-
+#redraws the grid lines
+def draw_grid(canvas_width,cells): 
 	# draw grid lines	
 	for i in range(cells):
 		canvas.create_line(i*(canvas_width/cells),0,i*(canvas_width/cells),canvas_width,i*(canvas_width/cells),0)
 		canvas.create_line(0,i*(canvas_width/cells),canvas_width,i*(canvas_width/cells),0,i*(canvas_width/cells))
 
+def place_cell(event):
+	x = (event.x - (event.x % (canvas_width/cells)))/(canvas_width/cells)
+	y = (event.y - (event.y % (canvas_width/cells)))/(canvas_width/cells)
+		
+	canvas.create_rectangle(x*(canvas_width/cells),
+	y*(canvas_width/cells),
+	x*(canvas_width/cells)+canvas_width/cells,
+	y*(canvas_width/cells)+canvas_width/cells,
+	fill='black')
+	
+	board[int(x)][int(y)] = 1	
+	print(x,y)
 
+def delete_cell(event):
+	x = (event.x - (event.x % (canvas_width/cells)))/(canvas_width/cells)
+	y = (event.y - (event.y % (canvas_width/cells)))/(canvas_width/cells)
+
+	canvas.create_rectangle(x*(canvas_width/cells),
+	y*(canvas_width/cells),
+	x*(canvas_width/cells)+canvas_width/cells,
+	y*(canvas_width/cells)+canvas_width/cells,
+	fill='white')
+
+	board[int(x)][int(y)] = 0 	
+	print(x,y)
+
+def quit_drawing(event):
+	global quit
+	quit=True
 
 window = tkinter.Tk()
 window.title('Conways Game of Life')
 
-canvas_width=800
+canvas_width = 800
 canvas = tkinter.Canvas(window,width = canvas_width,height = canvas_width)
 canvas.pack()
 
 
 #number of cells per side
-cells=100
+cells = 100
 
-#loop to draw alive cells 
-board=main.initialize(cells)
-	
+#loop to draw alive cells
+global board
+board = main.makeboard(cells) 
+canvas.bind("<B1-Motion>",place_cell) #accounts for both motion and clicks 
+canvas.bind('<Button-1>',place_cell)
+canvas.bind("<B2-Motion>",delete_cell)  
+canvas.bind('<Button-2>',delete_cell)
+window.bind('<space>',quit_drawing)
+draw_grid(canvas_width,cells)
+
+
+print(board)
+while True:
+	window.update()
+	if quit==True:
+		del quit
+		break
+
+window.unbind('<Button-1>')
+window.unbind('<space>')
+
 
 
 
 
 #checking every cell and drawing alive or dead cell
 while True:
-	delete_all_objects()
+	canvas.delete('all')	
+	draw_grid(canvas_width,cells)
 	for i in range(len(board)):
 		for j in range(len(board[i])):
 			if board[i][j] == 1:
