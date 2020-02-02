@@ -1,12 +1,13 @@
 #conway's game of life  
-#Tharun Tilakumara 2019/1/19 
+#Tharun Tilakumara 2020/1/19 
  
 import random
 
 #functions
 #checks and returns board for next generation
 def live_or_die(board,side_length):   #create temp_board return temp_board
-	temp_board=[[0 for i in range(side_length)]for j in range(side_length)]
+	temp_board = makeboard(side_length)
+	board = tuple(board)
 	
 	for i in range(side_length):
 		for j in range(side_length):
