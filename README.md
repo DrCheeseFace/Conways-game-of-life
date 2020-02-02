@@ -1,7 +1,7 @@
 # Conways-game-of-life
 python program which simulates conways game of life
 
-dependencies, tkinter
+dependencies include tkinter
 
 To run program, launch game_of_life.py
 
